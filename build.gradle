@@ -1,0 +1,47 @@
+plugins {
+    id 'com.gradleup.shadow' version '8.3.0'
+    id 'java'
+    id 'maven-publish'
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.gradleup.shadow'
+    apply plugin: 'com.diffplug.spotless'
+
+    publishing {
+        publications {
+            shadow(MavenPublication) { publication ->
+                project.shadow.component(publication)
+            }
+        }
+    }
+
+    spotless {
+        java {
+            target 'src/**/*.java'
+            removeUnusedImports()
+            importOrder()
+        }
+    }
+
+    tasks.named('shadowJar') { dependsOn 'spotlessApply' }
+
+    compileJava.options.encoding = 'UTF-8'
+
+    compileJava {
+        options.encoding = 'UTF-8'
+        sourceCompatibility = 8
+        targetCompatibility = 8
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    test {
+        systemProperty "file.encoding", "utf-8"
+    }
+}

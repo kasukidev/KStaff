@@ -1,0 +1,95 @@
+plugins {
+    id("com.google.protobuf") version "0.9.4"
+}
+
+group = 'me.kasuki.kstaff'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url = 'https://jitpack.io'
+    }
+
+    maven {
+        url = 'https://repo.aikar.co/content/groups/aikar/'
+    }
+
+    maven {
+        url = 'https://repo.codemc.io/repository/maven-public/'
+    }
+
+    maven {
+        url = 'https://maven.insidious.cc/repository/maven-mixed/'
+    }
+
+    mavenLocal()
+    mavenCentral()
+}
+
+shadowJar {
+    archiveBaseName.set('KStaff-Bukkit-1.0-SNAPSHOT')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    relocate('com.cryptomorin', 'me.kasuki.kstaff.bukkit.internal.com.cryptomorin')
+    relocate('org.intellij', 'me.kasuki.kstaff.bukkit.internal.org.intellij')
+    relocate("org.apache.commons", "me.kasuki.kstaff.bukkit.internal.org.apache.commons")
+    relocate('de.tr7zw.changeme.nbtapi', 'me.kasuki.kstaff.bukkit.internal.de.tr7zw.nbtapi')
+    relocate('com.zaxxer', 'me.kasuki.kstaff.bukkit.internal.com.zaxxer')
+    relocate('org.bson', 'me.kasuki.kstaff.bukkit.internal.org.bson')
+    relocate('com.mongodb', 'me.kasuki.kstaff.bukkit.internal.com.mongodb')
+    relocate('cc.insidious.fethmusmioma', 'me.kasuki.kstaff.bukkit.internal.cc.insidious.fethmusmioma')
+    relocate('cc.insidious.menu', 'me.kasuki.kstaff.bukkit.internal.cc.insidious.menu')
+    relocate('cc.insidious.config', 'me.kasuki.kstaff.bukkit.internal.cc.insidious.config')
+    relocate('com.codahale', 'me.kasuki.kstaff.bukkit.internal.com.codahale')
+    relocate('com.datastax', 'me.kasuki.kstaff.bukkit.internal.com.datastax')
+    relocate('com.fasterxml', 'me.kasuki.kstaff.bukkit.internal.com.fasterxml')
+    relocate('com.google', 'me.kasuki.kstaff.bukkit.internal.com.google')
+    relocate('com.kenai', 'me.kasuki.kstaff.bukkit.internal.com.kenai')
+    relocate('com.typesafe', 'me.kasuki.kstaff.bukkit.internal.com.typesafe')
+    relocate('de.tr7zw.annotations', 'me.kasuki.kstaff.bukkit.internal.de.tr7zw.annotations')
+    relocate('io.netty', 'me.kasuki.kstaff.bukkit.internal.io.netty')
+    relocate('jnr', 'me.kasuki.kstaff.bukkit.internal.jnr')
+    relocate('org.HdrHistogram', 'me.kasuki.kstaff.bukkit.internal.org.hdrhistogram')
+    relocate('org.jetbrains', 'me.kasuki.kstaff.bukkit.internal.org.jetbrains')
+    relocate('org.objectweb', 'me.kasuki.kstaff.bukkit.internal.org.objectweb')
+    relocate('org.reactivestreams', 'me.kasuki.kstaff.bukkit.internal.org.reactivestreams')
+    relocate('org.slf4j', 'me.kasuki.kstaff.bukkit.internal.org.slf4j')
+    relocate('redis.clients', 'me.kasuki.kstaff.bukkit.internal.redis.clients')
+    relocate('com.github.benmanes', 'me.kasuki.kstaff.bukkit.internal.com.github.benmanes')
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:4.28.2'
+    }
+    generateProtoTasks {
+        all().configureEach { task ->
+            task.builtins {
+                java {
+
+                }
+            }
+        }
+    }
+}
+
+
+dependencies {
+    annotationProcessor('org.projectlombok:lombok:1.18.36')
+    compileOnly('org.spigotmc:spigot-api:1.8-R0.1-SNAPSHOT')
+    compileOnly('org.projectlombok:lombok:1.18.36')
+    implementation('org.jetbrains:annotations:24.1.0')
+    implementation('org.apache.commons:commons-text:1.12.0')
+    implementation('org.apache.commons:commons-lang3:3.17.0')
+    implementation('com.google.protobuf:protobuf-java:4.28.2')
+    implementation('org.xerial:sqlite-jdbc:3.47.0.0')
+    implementation('redis.clients:jedis:6.0.0')
+    implementation('com.github.ben-manes.caffeine:caffeine:2.9.3')
+    implementation('com.google.guava:guava:33.4.8-jre')
+    implementation('cc.insidious.fethmusmioma:FethmusMioma:1.0.1-SNAPSHOT')
+    implementation('cc.insidious.config:spigot:1.0-SNAPSHOT')
+    implementation('com.github.cryptomorin:XSeries:13.2.0')
+    implementation('de.tr7zw:item-nbt-api:2.15.2')
+    implementation project(':Common-API')
+    implementation project(':Utilities')
+}

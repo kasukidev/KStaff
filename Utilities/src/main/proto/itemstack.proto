@@ -1,0 +1,404 @@
+syntax = "proto3";
+
+package me.kasuki.kstaff.utilities.bukkit.item;
+
+option java_package = "me.kasuki.kstaff.utilities.bukkit.item";
+option java_outer_classname = "Itemstack";
+
+// Represents the item stack payload.
+message ItemStack {
+  // Stores the type.
+  string type = 1;
+  // Stores the amount.
+  int32 amount = 2;
+  // Stores the durability.
+  int32 durability = 3;
+
+  // Stores the common.
+  CommonMeta common = 4;
+
+  // Represents mutually exclusive special meta values.
+  oneof special_meta {
+    // Stores the book.
+    BookMeta book = 10;
+    // Stores the enchanted book.
+    EnchantedBookMeta enchanted_book = 11;
+    // Stores the leather armor.
+    LeatherArmorMeta leather_armor = 12;
+    // Stores the skull.
+    SkullMeta skull = 13;
+    // Stores the potion.
+    PotionMeta potion = 14;
+    // Stores the map.
+    MapMeta map = 15;
+    // Stores the firework.
+    FireworkMeta firework = 16;
+    // Stores the firework effect.
+    FireworkEffectMeta firework_effect = 17;
+    // Stores the banner.
+    BannerMeta banner = 18;
+    // Stores the block state.
+    BlockStateMeta block_state = 19;
+    // Stores the block data.
+    BlockDataMeta block_data = 20;
+    // Stores the spawn egg.
+    SpawnEggMeta spawn_egg = 21;
+    // Stores the compass.
+    CompassMeta compass = 22;
+    // Stores the crossbow.
+    CrossbowMeta crossbow = 23;
+    // Stores the knowledge book.
+    KnowledgeBookMeta knowledge_book = 24;
+    // Stores the suspicious stew.
+    SuspiciousStewMeta suspicious_stew = 25;
+    // Stores the tropical fish bucket.
+    TropicalFishBucketMeta tropical_fish_bucket = 26;
+    // Stores the axolotl bucket.
+    AxolotlBucketMeta axolotl_bucket = 27;
+    // Stores the bundle.
+    BundleMeta bundle = 28;
+    // Stores the armor trim.
+    ArmorTrimMeta armor_trim = 29;
+    // Stores the music instrument.
+    MusicInstrumentMeta music_instrument = 30;
+    // Stores the ominous bottle.
+    OminousBottleMeta ominous_bottle = 31;
+  }
+
+  // Stores the nbt data.
+  string nbt_data = 40;
+  // Stores the components.
+  repeated DataComponent components = 41;
+  // Stores the data version.
+  int32 data_version = 42;
+  // Stores the minecraft version.
+  string minecraft_version = 43;
+  // Stores the serializer version.
+  string serializer_version = 44;
+}
+
+// Represents the item stack array payload.
+message ItemStackArray {
+  // Stores the items.
+  repeated ItemStack items = 1;
+}
+
+// Represents the common meta payload.
+message CommonMeta {
+  // Stores the display name.
+  string display_name = 1;
+  // Stores the lore.
+  repeated string lore = 2;
+  // Stores the localized name.
+  string localized_name = 3;
+  // Stores the item name.
+  string item_name = 4;
+  // Stores the unbreakable.
+  bool unbreakable = 5;
+  // Stores the custom model data.
+  int32 custom_model_data = 6;
+  // Stores the repair cost.
+  int32 repair_cost = 7;
+  // Stores the damage.
+  int32 damage = 8;
+  // Stores the has glint override.
+  bool has_glint_override = 9;
+  // Stores the glint override.
+  bool glint_override = 10;
+  // Stores the hide tooltip.
+  bool hide_tooltip = 11;
+  // Stores the fire resistant.
+  bool fire_resistant = 12;
+  // Stores the rarity.
+  string rarity = 13;
+  // Stores the enchants.
+  repeated Enchantment enchants = 14;
+  // Stores the item flags.
+  repeated string item_flags = 15;
+  // Stores the attribute modifiers.
+  repeated AttributeModifier attribute_modifiers = 16;
+  // Stores the can destroy.
+  repeated string can_destroy = 17;
+  // Stores the can place on.
+  repeated string can_place_on = 18;
+  // Stores the persistent data.
+  repeated PersistentDataEntry persistent_data = 19;
+  // Stores the custom tags.
+  repeated StringMapEntry custom_tags = 20;
+}
+
+// Represents the enchantment payload.
+message Enchantment {
+  // Stores the key.
+  string key = 1;
+  // Stores the level.
+  int32 level = 2;
+}
+
+// Represents the attribute modifier payload.
+message AttributeModifier {
+  // Stores the attribute.
+  string attribute = 1;
+  // Stores the name.
+  string name = 2;
+  // Stores the uuid.
+  string uuid = 3;
+  // Stores the amount.
+  double amount = 4;
+  // Stores the operation.
+  string operation = 5;
+  // Stores the slot.
+  string slot = 6;
+}
+
+// Represents the persistent data entry payload.
+message PersistentDataEntry {
+  // Stores the key.
+  string key = 1;
+  // Stores the type.
+  string type = 2;
+  // Stores the value.
+  bytes value = 3;
+}
+
+// Represents the string map entry payload.
+message StringMapEntry {
+  // Stores the key.
+  string key = 1;
+  // Stores the value.
+  string value = 2;
+}
+
+// Represents the data component payload.
+message DataComponent {
+  // Stores the key.
+  string key = 1;
+  // Stores the json value.
+  string json_value = 2;
+}
+
+// Represents the book meta payload.
+message BookMeta {
+  // Stores the title.
+  string title = 1;
+  // Stores the author.
+  string author = 2;
+  // Stores the generation.
+  string generation = 3;
+  // Stores the pages.
+  repeated string pages = 4;
+  // Stores the resolved.
+  bool resolved = 5;
+}
+
+// Represents the enchanted book meta payload.
+message EnchantedBookMeta {
+  // Stores the stored enchants.
+  repeated Enchantment stored_enchants = 1;
+}
+
+// Represents the leather armor meta payload.
+message LeatherArmorMeta {
+  // Stores the red.
+  int32 red = 1;
+  // Stores the green.
+  int32 green = 2;
+  // Stores the blue.
+  int32 blue = 3;
+}
+
+// Represents the skull meta payload.
+message SkullMeta {
+  // Stores the owner.
+  string owner = 1;
+  // Stores the owning player uuid.
+  string owning_player_uuid = 2;
+  // Stores the player name.
+  string player_name = 3;
+  // Stores the texture.
+  string texture = 4;
+  // Stores the texture signature.
+  string texture_signature = 5;
+}
+
+// Represents the potion meta payload.
+message PotionMeta {
+  // Stores the base potion type.
+  string base_potion_type = 1;
+  // Stores the upgraded.
+  bool upgraded = 2;
+  // Stores the extended.
+  bool extended = 3;
+  // Stores the color rgb.
+  int32 color_rgb = 4;
+  // Stores the custom effects.
+  repeated PotionEffect custom_effects = 5;
+  // Stores the custom name.
+  string custom_name = 6;
+}
+
+// Represents the potion effect payload.
+message PotionEffect {
+  // Stores the type.
+  string type = 1;
+  // Stores the duration.
+  int32 duration = 2;
+  // Stores the amplifier.
+  int32 amplifier = 3;
+  // Stores the ambient.
+  bool ambient = 4;
+  // Stores the particles.
+  bool particles = 5;
+  // Stores the icon.
+  bool icon = 6;
+}
+
+// Represents the map meta payload.
+message MapMeta {
+  // Stores the scaling.
+  bool scaling = 1;
+  // Stores the map id.
+  int32 map_id = 2;
+  // Stores the location name.
+  string location_name = 3;
+  // Stores the color rgb.
+  int32 color_rgb = 4;
+}
+
+// Represents the firework meta payload.
+message FireworkMeta {
+  // Stores the power.
+  int32 power = 1;
+  // Stores the effects.
+  repeated FireworkEffect effects = 2;
+}
+
+// Represents the firework effect meta payload.
+message FireworkEffectMeta {
+  // Stores the effect.
+  FireworkEffect effect = 1;
+}
+
+// Represents the firework effect payload.
+message FireworkEffect {
+  // Stores the type.
+  string type = 1;
+  // Stores the colors.
+  repeated int32 colors = 2;
+  // Stores the fade colors.
+  repeated int32 fade_colors = 3;
+  // Stores the flicker.
+  bool flicker = 4;
+  // Stores the trail.
+  bool trail = 5;
+}
+
+// Represents the banner meta payload.
+message BannerMeta {
+  // Stores the base color.
+  string base_color = 1;
+  // Stores the patterns.
+  repeated BannerPattern patterns = 2;
+}
+
+// Represents the banner pattern payload.
+message BannerPattern {
+  // Stores the color.
+  string color = 1;
+  // Stores the pattern type.
+  string pattern_type = 2;
+}
+
+// Represents the block state meta payload.
+message BlockStateMeta {
+  // Stores the block entity nbt.
+  string block_entity_nbt = 1;
+}
+
+// Represents the block data meta payload.
+message BlockDataMeta {
+  // Stores the block data.
+  string block_data = 1;
+}
+
+// Represents the spawn egg meta payload.
+message SpawnEggMeta {
+  // Stores the spawned type.
+  string spawned_type = 1;
+}
+
+// Represents the compass meta payload.
+message CompassMeta {
+  // Stores the lodestone tracked.
+  bool lodestone_tracked = 1;
+  // Stores the lodestone world.
+  string lodestone_world = 2;
+  // Stores the lodestone x.
+  int32 lodestone_x = 3;
+  // Stores the lodestone y.
+  int32 lodestone_y = 4;
+  // Stores the lodestone z.
+  int32 lodestone_z = 5;
+}
+
+// Represents the crossbow meta payload.
+message CrossbowMeta {
+  // Stores the charged projectiles.
+  repeated ItemStack charged_projectiles = 1;
+}
+
+// Represents the knowledge book meta payload.
+message KnowledgeBookMeta {
+  // Stores the recipes.
+  repeated string recipes = 1;
+}
+
+// Represents the suspicious stew meta payload.
+message SuspiciousStewMeta {
+  // Stores the custom effects.
+  repeated PotionEffect custom_effects = 1;
+}
+
+// Represents the tropical fish bucket meta payload.
+message TropicalFishBucketMeta {
+  // Stores the body color.
+  int32 body_color = 1;
+  // Stores the pattern color.
+  int32 pattern_color = 2;
+  // Stores the pattern.
+  string pattern = 3;
+}
+
+// Represents the axolotl bucket meta payload.
+message AxolotlBucketMeta {
+  // Stores the variant.
+  string variant = 1;
+}
+
+// Represents the bundle meta payload.
+message BundleMeta {
+  // Stores the contents.
+  repeated ItemStack contents = 1;
+}
+
+// Represents the armor trim meta payload.
+message ArmorTrimMeta {
+  // Stores the material.
+  string material = 1;
+  // Stores the pattern.
+  string pattern = 2;
+  // Stores the show in tooltip.
+  bool show_in_tooltip = 3;
+}
+
+// Represents the music instrument meta payload.
+message MusicInstrumentMeta {
+  // Stores the instrument.
+  string instrument = 1;
+}
+
+// Represents the ominous bottle meta payload.
+message OminousBottleMeta {
+  // Stores the amplifier.
+  int32 amplifier = 1;
+}

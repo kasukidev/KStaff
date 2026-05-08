@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package me.kasuki.kstaff.utilities.bukkit.location;
+
+message Location {
+  string worldId = 1;
+  int32 x = 2;
+  int32 y =  3;
+  int32 z = 4;
+  float yaw = 5;
+  float pitch = 6;
+}

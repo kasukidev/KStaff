@@ -1,0 +1,5 @@
+name: KStaff
+version: 1.0
+api-version: 1.13
+author: "KasukiDev"
+main: me.kasuki.kstaff.KStaffPlugin

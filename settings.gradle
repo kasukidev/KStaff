@@ -1,0 +1,4 @@
+rootProject.name = 'KStaff'
+include 'Common-API'
+include 'Bukkit'
+include 'Utilities'

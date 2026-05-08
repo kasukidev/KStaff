@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package me.kasuki.kstaff.utilities.bukkit.cuboid;
+
+import "location.proto";
+
+message Cuboid {
+  me.kasuki.kstaff.utilities.bukkit.location.Location firstLocation = 1;
+  me.kasuki.kstaff.utilities.bukkit.location.Location secondLocation = 2;
+}

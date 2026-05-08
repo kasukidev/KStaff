@@ -8,12 +8,16 @@ import me.kasuki.kstaff.registration.data.ConfigRegistrationHandler;
 import me.kasuki.kstaff.registration.data.ModuleRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.CommandRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.ListenerRegistrationHandler;
+import me.kasuki.kstaff.save.SaveRunnable;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public class KStaffPlugin extends JavaPlugin {
 
     private KStaffAPI KStaffAPI;
+
+
+    private SaveRunnable saveRunnable;
 
     @Override
     public void onEnable() {
@@ -25,10 +29,17 @@ public class KStaffPlugin extends JavaPlugin {
                         new CommandRegistrationHandler(this),
                         new ListenerRegistrationHandler(this))
                 .forEachOrdered(IRegistrationHandler::registerObjects);
+
+        this.saveRunnable = new SaveRunnable(this);
     }
 
     @Override
     public void onDisable() {
+        if (this.saveRunnable != null) {
+            this.saveRunnable.cancel();
+            this.saveRunnable = null;
+        }
+
         this.KStaffAPI.shutdown();
     }
 }

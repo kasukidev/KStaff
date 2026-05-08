@@ -90,6 +90,6 @@ dependencies {
     implementation('cc.insidious.config:spigot:1.0-SNAPSHOT')
     implementation('com.github.cryptomorin:XSeries:13.2.0')
     implementation('de.tr7zw:item-nbt-api:2.15.2')
-    implementation project(':Common-API')
+    implementation project(':API')
     implementation project(':Utilities')
 }

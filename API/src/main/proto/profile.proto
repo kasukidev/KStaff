@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package me.kasuki.kstaff.api.staff;
+
+message Profile {
+  string uuid = 1;
+  bool staffMode = 2;
+  bool staffChat = 3;
+}

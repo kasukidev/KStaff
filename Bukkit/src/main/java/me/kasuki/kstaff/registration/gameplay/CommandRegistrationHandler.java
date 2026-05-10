@@ -1,10 +1,12 @@
 package me.kasuki.kstaff.registration.gameplay;
 
 import cc.insidious.fethmusmioma.CommandHandler;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
+import me.kasuki.kstaff.command.CommandStaffMode;
+
+import java.util.stream.Stream;
 
 /**
  * Handles command registration for this module.
@@ -18,6 +20,6 @@ public class CommandRegistrationHandler implements IRegistrationHandler {
     public void registerObjects() {
         CommandHandler commandHandler = new CommandHandler(this.instance, "kstaff");
 
-        Stream.of().forEach(commandHandler::registerCommand);
+        Stream.of(new CommandStaffMode(this.instance)).forEach(commandHandler::registerCommand);
     }
 }

@@ -1,12 +1,13 @@
-package me.kasuki.kstaff.staff.listener;
+package me.kasuki.kstaff.profile.listener;
 
-import java.util.UUID;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+
+import java.util.UUID;
 
 public class ProfileListener implements Listener {
 

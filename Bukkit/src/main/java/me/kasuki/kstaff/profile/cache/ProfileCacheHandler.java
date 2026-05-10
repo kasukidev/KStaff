@@ -1,11 +1,12 @@
-package me.kasuki.kstaff.staff.cache;
+package me.kasuki.kstaff.profile.cache;
+
+import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 
 public class ProfileCacheHandler {
 

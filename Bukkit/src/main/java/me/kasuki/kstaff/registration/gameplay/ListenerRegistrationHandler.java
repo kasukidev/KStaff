@@ -1,12 +1,14 @@
 package me.kasuki.kstaff.registration.gameplay;
 
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
-import me.kasuki.kstaff.staff.listener.ProfileListener;
+import me.kasuki.kstaff.profile.listener.ProfileListener;
+import me.kasuki.kstaff.staffmode.item.listener.ItemListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+
+import java.util.stream.Stream;
 
 /**
  * Handles listener registration for this module.
@@ -18,7 +20,8 @@ public class ListenerRegistrationHandler implements IRegistrationHandler {
     @Override
     public void registerObjects() {
         PluginManager manager = this.instance.getServer().getPluginManager();
-        Stream.of(new ProfileListener(this.instance))
+        Stream.of(new ProfileListener(this.instance),
+                        new ItemListener(this.instance))
                 .filter(Listener.class::isInstance)
                 .map(Listener.class::cast)
                 .forEach(listener -> manager.registerEvents(listener, this.instance));

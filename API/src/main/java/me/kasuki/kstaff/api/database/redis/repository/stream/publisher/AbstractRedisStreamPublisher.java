@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.api.constant.KStaffConstant;
 import me.kasuki.kstaff.api.database.redis.AbstractRedisHandler;
-import me.kasuki.kstaff.api.database.redis.repository.stream.consumer.AbstractRedisStreamConsumer;
 import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
+import me.kasuki.kstaff.api.database.redis.repository.stream.consumer.AbstractRedisStreamConsumer;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.params.XAddParams;
 

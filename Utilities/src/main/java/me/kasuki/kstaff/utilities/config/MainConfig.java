@@ -1,4 +1,4 @@
-package me.kasuki.kstaff.config;
+package me.kasuki.kstaff.utilities.config;
 
 import cc.insidious.config.Config;
 import org.bukkit.plugin.java.JavaPlugin;

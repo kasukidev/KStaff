@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
-import me.kasuki.kstaff.config.LangConfig;
-import me.kasuki.kstaff.config.MainConfig;
+import me.kasuki.kstaff.utilities.config.LangConfig;
+import me.kasuki.kstaff.utilities.config.MainConfig;
 
 /**
  * Handles config registration for this module.

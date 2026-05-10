@@ -1,7 +1,7 @@
 package me.kasuki.kstaff.api.database.redis.repository.stream;
 
-import me.kasuki.kstaff.api.database.redis.repository.stream.processor.IEventProcessor;
 import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
+import me.kasuki.kstaff.api.database.redis.repository.stream.processor.IEventProcessor;
 
 import java.util.Optional;
 

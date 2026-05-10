@@ -1,10 +1,11 @@
-package me.kasuki.kstaff.staff.util;
+package me.kasuki.kstaff.profile.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.experimental.UtilityClass;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @UtilityClass
 public class ProfileSaveUtil {

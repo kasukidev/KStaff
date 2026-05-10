@@ -1,16 +1,17 @@
-package me.kasuki.kstaff.staff;
+package me.kasuki.kstaff.profile;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.repository.SQLiteProfileRepository;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import me.kasuki.kstaff.api.staff.ProfileOuterClass;
-import me.kasuki.kstaff.staff.cache.ProfileCacheHandler;
-import me.kasuki.kstaff.staff.util.ProfileSaveUtil;
+import me.kasuki.kstaff.profile.cache.ProfileCacheHandler;
+import me.kasuki.kstaff.profile.util.ProfileSaveUtil;
+
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class SQLiteProfileHandler implements IProfileHandler {
 

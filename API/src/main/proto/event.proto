@@ -12,5 +12,5 @@ message EventBundle {
 }
 
 enum EventType {
-  SERVER_UPDATE = 0;
+  STAFF_CHAT_MESSAGE = 0;
 }

@@ -21,4 +21,9 @@ public class KStaffConstant {
      */
     public final String SQLITE_DATABASE_NAME = "kstaff-database";
     public final String PLAYER_TABLE_NAME = "profiles";
+
+    /**
+     * Constant for redis streams
+     */
+    public final String STAFF_CHAT_REDIS_KEY = "kstaff-staffchat";
 }

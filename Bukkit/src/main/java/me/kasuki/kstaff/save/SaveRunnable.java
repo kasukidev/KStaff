@@ -2,7 +2,7 @@ package me.kasuki.kstaff.save;
 
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
-import me.kasuki.kstaff.profile.util.ProfileSaveUtil;
+import me.kasuki.kstaff.data.profile.util.ProfileSaveUtil;
 import org.bukkit.scheduler.BukkitRunnable;
 
 // Leaving room for further expansion

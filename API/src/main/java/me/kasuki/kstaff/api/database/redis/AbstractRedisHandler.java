@@ -24,11 +24,6 @@ public abstract class AbstractRedisHandler implements AutoCloseable {
     private final String channel;
 
     /**
-     * Stores proxy channel.
-     */
-    private final String proxyChannel;
-
-    /**
      * Stores jedis pool.
      */
     private final JedisPool jedisPool;
@@ -42,11 +37,9 @@ public abstract class AbstractRedisHandler implements AutoCloseable {
      * Creates a new AbstractRedisHandler instance.
      */
     protected AbstractRedisHandler(
-            String host, int port, String password, String channel, String proxyChannel) {
+            String host, int port, String password, String channel) {
         this.password = password;
         this.channel = channel;
-        this.proxyChannel = proxyChannel;
-
         this.jedisPool = new JedisPool(host, port);
         this.subscriptionPool = new JedisPool(host, port);
     }

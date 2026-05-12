@@ -1,11 +1,12 @@
 package me.kasuki.kstaff.registration.gameplay;
 
 import cc.insidious.fethmusmioma.CommandHandler;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
 import me.kasuki.kstaff.staff.command.CommandStaffMode;
+
+import java.util.stream.Stream;
 
 /**
  * Handles command registration for this module.

@@ -10,6 +10,7 @@ import me.kasuki.kstaff.registration.data.ModuleRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.CommandRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.ListenerRegistrationHandler;
 import me.kasuki.kstaff.save.SaveRunnable;
+import me.kasuki.kstaff.staff.StaffModeManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -17,6 +18,7 @@ public class KStaffPlugin extends JavaPlugin {
     private KStaffAPI KStaffAPI;
     private SaveRunnable saveRunnable;
     private ItemManager itemManager;
+    private StaffModeManager staffModeManager;
 
     @Override
     public void onEnable() {
@@ -30,6 +32,7 @@ public class KStaffPlugin extends JavaPlugin {
                 .forEachOrdered(IRegistrationHandler::registerObjects);
 
         this.registerItemManager();
+        this.staffModeManager = new StaffModeManager(this);
         this.saveRunnable = new SaveRunnable(this);
     }
 

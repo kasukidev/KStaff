@@ -13,10 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
@@ -64,6 +61,18 @@ public class StaffmodeListener implements Listener {
         MessageUtil.sendPrefixedMessage(player, LangConfig.COMMAND_DISABLED);
         player.playSound(player.getLocation(), XSound.BLOCK_LAVA_POP.get(), 1, 1);
         event.setCancelled(true);
+    }
+
+    /**
+     * Player Death
+     */
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        if (!this.isInStaffMode(player)) return;
+
+        event.setDeathMessage(null);
+        event.getDrops().clear();
     }
 
     /**

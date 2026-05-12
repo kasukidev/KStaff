@@ -33,6 +33,7 @@ public class ProfileListener implements Listener {
                     }
 
                     ProfileWrapper profileWrapper = ProfileWrapper.from(uuid).setChanged(true);
+                    this.profileHandler.saveToDatabase(profileWrapper);
                     this.profileHandler.addToCache(profileWrapper);
                 });
     }

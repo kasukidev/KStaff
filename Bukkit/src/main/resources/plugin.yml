@@ -2,4 +2,10 @@ name: KStaff
 version: 1.0
 api-version: 1.13
 author: "KasukiDev"
+description: "The ultimate staff core solution"
+website: "https://www.kasuki.dev"
 main: me.kasuki.kstaff.KStaffPlugin
+softdepend:
+  - PlaceholderAPI
+  - Luckperms
+  - TAB

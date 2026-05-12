@@ -10,7 +10,6 @@ import me.kasuki.kstaff.api.profile.repository.SQLiteProfileRepository;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import me.kasuki.kstaff.api.staff.ProfileOuterClass;
 import me.kasuki.kstaff.profile.cache.ProfileCacheHandler;
-import me.kasuki.kstaff.profile.util.ProfileSaveUtil;
 
 public class SQLiteProfileHandler implements IProfileHandler {
 
@@ -110,6 +109,6 @@ public class SQLiteProfileHandler implements IProfileHandler {
 
     @Override
     public void unload() {
-        ProfileSaveUtil.processProfileSaving(this);
+        this.saveAllToDatabase(this.profileCacheHandler.getAllFromCache());
     }
 }

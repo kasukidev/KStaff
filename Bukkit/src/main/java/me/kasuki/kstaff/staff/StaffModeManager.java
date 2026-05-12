@@ -23,8 +23,9 @@ public class StaffModeManager {
      * Main method
      */
     public void toggleStaffMode(Player player, ProfileWrapper wrapper, boolean enteringStaffMode) {
-        wrapper = wrapper.setStaffModeState(enteringStaffMode).setStaffChatState(enteringStaffMode);
+        wrapper = wrapper.setStaffModeState(enteringStaffMode);
         wrapper = this.handleInventories(player, wrapper, enteringStaffMode);
+        wrapper.setChanged(true);
         this.profileHandler.addToCache(wrapper);
 
         if (enteringStaffMode) {

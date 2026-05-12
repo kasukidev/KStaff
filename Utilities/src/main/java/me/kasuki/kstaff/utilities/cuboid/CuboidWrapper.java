@@ -1,15 +1,13 @@
 package me.kasuki.kstaff.utilities.cuboid;
 
 import com.cryptomorin.xseries.XMaterial;
-import lombok.Getter;
-import me.kasuki.kstaff.utilities.bukkit.cuboid.CuboidOuterClass;
-import me.kasuki.kstaff.utilities.bukkit.location.LocationOuterClass;
-import org.bukkit.*;
-import org.bukkit.block.Block;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import lombok.Getter;
+import me.kasuki.kstaff.utilities.location.LocationOuterClass;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 
 /**
  * Wrapper for cuboid data and behavior.

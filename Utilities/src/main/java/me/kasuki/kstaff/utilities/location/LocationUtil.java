@@ -1,7 +1,6 @@
 package me.kasuki.kstaff.utilities.location;
 
 import lombok.experimental.UtilityClass;
-import me.kasuki.kstaff.utilities.bukkit.location.LocationOuterClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 

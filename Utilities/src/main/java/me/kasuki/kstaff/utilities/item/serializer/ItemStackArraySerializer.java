@@ -1,14 +1,13 @@
 package me.kasuki.kstaff.utilities.item.serializer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import me.kasuki.kstaff.utilities.bukkit.item.Itemstack;
+import me.kasuki.kstaff.utilities.item.Itemstack;
 import me.kasuki.kstaff.utilities.item.codec.ItemStackCodec;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents the item stack array serializer component.

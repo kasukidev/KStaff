@@ -1,13 +1,12 @@
 package me.kasuki.kstaff.utilities.item;
 
 import com.cryptomorin.xseries.XMaterial;
+import java.util.List;
 import me.kasuki.kstaff.utilities.chat.CC;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.List;
 
 /**
  * Builder for item instances.

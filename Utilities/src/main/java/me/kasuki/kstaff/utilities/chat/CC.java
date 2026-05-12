@@ -1,12 +1,11 @@
 package me.kasuki.kstaff.utilities.chat;
 
-import lombok.experimental.UtilityClass;
-import org.bukkit.ChatColor;
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import lombok.experimental.UtilityClass;
+import org.bukkit.ChatColor;
 
 /**
  * Utility methods for translating and formatting chat color codes.

@@ -3,9 +3,8 @@ package me.kasuki.kstaff.utilities.config;
 import cc.insidious.config.Config;
 import cc.insidious.config.annotation.ConfigAnnotation;
 import com.google.common.collect.Lists;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.List;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class ItemsConfig extends Config {
     @ConfigAnnotation(path = "random_teleport.item_name")
@@ -17,8 +16,11 @@ public class ItemsConfig extends Config {
             "&7online player that is not you!"
     );
 
+    @ConfigAnnotation(path = "random_teleport.slot", comment = "Slot number starting from 0")
+    public static int RANDOM_TELEPORT_SLOT = 4;
+
     @ConfigAnnotation(path = "random_teleport.material")
-    public static String RANDOM_TELEPORT_MATERIAL = "ENDER_PEARL";
+    public static String RANDOM_TELEPORT_MATERIAL = "REDSTONE";
 
     @ConfigAnnotation(path = "random_teleport.no_online_players")
     public static String RANDOM_TELEPORT_NO_ONLINE_PLAYERS = "&cThere are no online players to teleport to!";

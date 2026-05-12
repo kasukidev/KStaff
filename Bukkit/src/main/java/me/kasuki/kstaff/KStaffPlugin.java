@@ -1,17 +1,16 @@
 package me.kasuki.kstaff;
 
+import java.util.stream.Stream;
 import lombok.Getter;
 import me.kasuki.kstaff.api.KStaffAPI;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
+import me.kasuki.kstaff.item.ItemManager;
 import me.kasuki.kstaff.registration.data.ConfigRegistrationHandler;
 import me.kasuki.kstaff.registration.data.ModuleRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.CommandRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.ListenerRegistrationHandler;
 import me.kasuki.kstaff.save.SaveRunnable;
-import me.kasuki.kstaff.staffmode.item.ItemManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.stream.Stream;
 
 @Getter
 public class KStaffPlugin extends JavaPlugin {
@@ -23,7 +22,6 @@ public class KStaffPlugin extends JavaPlugin {
     public void onEnable() {
         new ConfigRegistrationHandler(this).registerObjects();
         this.KStaffAPI = new KStaffAPI(this.getLogger());
-        this.registerItemManager();
 
         Stream.of(
                         new ModuleRegistrationHandler(this, this.KStaffAPI),
@@ -31,7 +29,7 @@ public class KStaffPlugin extends JavaPlugin {
                         new ListenerRegistrationHandler(this))
                 .forEachOrdered(IRegistrationHandler::registerObjects);
 
-        this.itemManager = new ItemManager(this);
+        this.registerItemManager();
         this.saveRunnable = new SaveRunnable(this);
     }
 

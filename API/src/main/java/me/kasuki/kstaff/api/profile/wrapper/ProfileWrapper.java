@@ -3,12 +3,19 @@ package me.kasuki.kstaff.api.profile.wrapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.api.staff.ProfileOuterClass;
+import me.kasuki.kstaff.utilities.item.serializer.ItemStackArraySerializer;
+import me.kasuki.kstaff.utilities.item.serializer.ItemStackSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Getter
 public class ProfileWrapper {
+    private final ItemStackArraySerializer serializerConstant = new ItemStackArraySerializer(new ItemStackSerializer(Bukkit.getLogger()));
+
     private final ProfileOuterClass.Profile profile;
     private boolean changed;
 
@@ -47,6 +54,40 @@ public class ProfileWrapper {
     public ProfileWrapper setStaffChatState(boolean state) {
         ProfileOuterClass.Profile.Builder builder = this.profile.toBuilder();
         builder.setStaffChat(state);
+        return new ProfileWrapper(builder.build());
+    }
+
+
+    /**
+     * Saved Inventory
+     */
+    public Optional<ItemStack[]> getSavedInventory() {
+        if (!this.profile.hasSavedInventory()) {
+            return Optional.empty();
+        }
+        return Optional.of(serializerConstant.deserialize(this.profile.getSavedInventory()));
+    }
+
+    public ProfileWrapper setSavedInventory(ItemStack[] inventory) {
+        ProfileOuterClass.Profile.Builder builder = this.profile.toBuilder();
+        builder.setSavedInventory(serializerConstant.serialize(inventory));
+        return new ProfileWrapper(builder.build());
+    }
+
+
+    /**
+     * Saved Armor
+     */
+    public Optional<ItemStack[]> getSavedArmor() {
+        if (!this.profile.hasSavedArmor()) {
+            return Optional.empty();
+        }
+        return Optional.of(serializerConstant.deserialize(this.profile.getSavedArmor()));
+    }
+
+    public ProfileWrapper setSavedArmor(ItemStack[] armor) {
+        ProfileOuterClass.Profile.Builder builder = this.profile.toBuilder();
+        builder.setSavedArmor(serializerConstant.serialize(armor));
         return new ProfileWrapper(builder.build());
     }
 

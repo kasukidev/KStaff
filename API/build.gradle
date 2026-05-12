@@ -49,6 +49,7 @@ protobuf {
 
 
 dependencies {
+    compileOnly project(':Utilities')
     annotationProcessor('org.projectlombok:lombok:1.18.36')
     compileOnly('org.projectlombok:lombok:1.18.36')
     compileOnly('org.xerial:sqlite-jdbc:3.47.0.0')

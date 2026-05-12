@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package me.kasuki.kstaff.utilities.bukkit.location;
+package me.kasuki.kstaff.utilities.location;
 
 message Location {
   string worldId = 1;

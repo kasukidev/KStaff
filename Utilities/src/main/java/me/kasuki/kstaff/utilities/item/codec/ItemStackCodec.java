@@ -1,6 +1,6 @@
 package me.kasuki.kstaff.utilities.item.codec;
 
-import me.kasuki.kstaff.utilities.bukkit.item.Itemstack;
+import me.kasuki.kstaff.utilities.item.Itemstack;
 import org.bukkit.inventory.ItemStack;
 
 /**

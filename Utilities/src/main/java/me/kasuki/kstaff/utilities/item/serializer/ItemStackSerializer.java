@@ -1,8 +1,14 @@
 package me.kasuki.kstaff.utilities.item.serializer;
 
 import com.cryptomorin.xseries.XMaterial;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.RequiredArgsConstructor;
-import me.kasuki.kstaff.utilities.bukkit.item.Itemstack;
+import me.kasuki.kstaff.utilities.item.Itemstack;
 import me.kasuki.kstaff.utilities.item.codec.ItemStackCodec;
 import me.kasuki.kstaff.utilities.item.nbt.ItemNbtBridge;
 import me.kasuki.kstaff.utilities.item.reflect.ReflectionCache;
@@ -15,13 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Represents the item stack serializer component.

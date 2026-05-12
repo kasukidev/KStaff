@@ -1,19 +1,18 @@
-package me.kasuki.kstaff.staffmode.item.impl;
+package me.kasuki.kstaff.item.impl;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import me.kasuki.kstaff.KStaffPlugin;
-import me.kasuki.kstaff.staffmode.item.AbstractItem;
+import me.kasuki.kstaff.item.AbstractItem;
 import me.kasuki.kstaff.utilities.chat.MessageUtil;
 import me.kasuki.kstaff.utilities.config.ItemsConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomTPItem extends AbstractItem {
     public RandomTPItem(KStaffPlugin instance) {

@@ -1,12 +1,13 @@
-package me.kasuki.kstaff.staffmode.item.listener;
+package me.kasuki.kstaff.item.listener;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.kasuki.kstaff.KStaffPlugin;
-import me.kasuki.kstaff.staffmode.item.AbstractItem;
+import me.kasuki.kstaff.item.AbstractItem;
 import me.kasuki.kstaff.utilities.cooldown.Cooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,20 +21,21 @@ public class ItemListener implements Listener {
         this.cooldown = new Cooldown();
     }
 
-    @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event){
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        ItemStack heldItem = player.getItemInHand();
+        ItemStack heldItem = event.getItem();
 
-        if(this.cooldown.isActive(player.getUniqueId())) return;
-        if(heldItem == null || XMaterial.matchXMaterial(heldItem.getType()) == XMaterial.AIR) return;
+        if (heldItem == null || heldItem.getType().equals(XMaterial.AIR.get())) return;
+
         NBTItem nbtItem = new NBTItem(heldItem);
-        if(!nbtItem.hasKey("itemType")) return;
+        if (!nbtItem.hasKey("itemType")) return;
 
-        AbstractItem item = this.instance.getItemManager().getFromId(nbtItem.getString("itemType"));
-        if(item == null) return;
+        AbstractItem item = instance.getItemManager().getFromId(nbtItem.getString("itemType"));
+        if (item == null) return;
+        if (cooldown.isActive(player.getUniqueId())) return;
 
-        this.cooldown.placeOnCooldown(player.getUniqueId(), 100);
+        cooldown.placeOnCooldown(player.getUniqueId(), 100);
         item.onInteract(event);
         event.setCancelled(true);
     }

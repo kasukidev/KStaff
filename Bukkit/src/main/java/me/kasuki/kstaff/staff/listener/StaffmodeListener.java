@@ -1,10 +1,12 @@
 package me.kasuki.kstaff.staff.listener;
 
+import com.cryptomorin.xseries.XSound;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import me.kasuki.kstaff.utilities.chat.MessageUtil;
 import me.kasuki.kstaff.utilities.config.LangConfig;
+import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +20,8 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 
 public class StaffmodeListener implements Listener {
@@ -46,6 +50,23 @@ public class StaffmodeListener implements Listener {
     }
 
     /**
+     * Commands
+     */
+    @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
+
+        if (!isInStaffMode(player)) return;
+
+        String command = this.getRootCommand(event.getMessage());
+        if (this.isAllowedCommand(command)) return;
+
+        MessageUtil.sendPrefixedMessage(player, LangConfig.COMMAND_DISABLED);
+        player.playSound(player.getLocation(), XSound.BLOCK_LAVA_POP.get(), 1, 1);
+        event.setCancelled(true);
+    }
+
+    /**
      * Disable Incoming general DMG
      */
     @EventHandler
@@ -54,6 +75,19 @@ public class StaffmodeListener implements Listener {
 
         Player player = (Player) event.getEntity();
         if (!this.isInStaffMode(player)) return;
+        event.setCancelled(true);
+    }
+
+    /**
+     * Disable dropping items
+     */
+    @EventHandler
+    public void onEntityDamageByEntity(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+
+        if (!this.isInStaffMode(player)) return;
+
+        MessageUtil.sendPrefixedMessage(player, LangConfig.NO_DROPPING_ITEMS);
         event.setCancelled(true);
     }
 
@@ -95,9 +129,9 @@ public class StaffmodeListener implements Listener {
      * Disable block placement
      */
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event){
+    public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if(!this.isInStaffMode(player)) return;
+        if (!this.isInStaffMode(player)) return;
 
         MessageUtil.sendPrefixedMessage(player, LangConfig.NO_PLACING_BLOCKS);
         event.setCancelled(true);
@@ -107,9 +141,9 @@ public class StaffmodeListener implements Listener {
      * Disable block breaking
      */
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event){
+    public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if(!this.isInStaffMode(player)) return;
+        if (!this.isInStaffMode(player)) return;
 
         MessageUtil.sendPrefixedMessage(player, LangConfig.NO_BREAKING_BLOCKS);
         event.setCancelled(true);
@@ -119,11 +153,11 @@ public class StaffmodeListener implements Listener {
      * Disable hunger loss
      */
     @EventHandler
-    public void onHungerLoss(FoodLevelChangeEvent event){
-        if(!(event.getEntity() instanceof Player)) return;
+    public void onHungerLoss(FoodLevelChangeEvent event) {
+        if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        if(!this.isInStaffMode(player)) return;
+        if (!this.isInStaffMode(player)) return;
 
         event.setCancelled(true);
         player.setFoodLevel(20);
@@ -133,9 +167,9 @@ public class StaffmodeListener implements Listener {
      * Bed Check (Lol)
      */
     @EventHandler
-    public void onBedEnter(PlayerBedEnterEvent event){
-        Player player =  event.getPlayer();
-        if(!this.isInStaffMode(player)) return;
+    public void onBedEnter(PlayerBedEnterEvent event) {
+        Player player = event.getPlayer();
+        if (!this.isInStaffMode(player)) return;
 
         event.setCancelled(true);
     }
@@ -144,20 +178,32 @@ public class StaffmodeListener implements Listener {
      * EXP Change
      */
     @EventHandler
-    public void onEXPChange(PlayerExpChangeEvent event){
-        Player player =  event.getPlayer();
-        if(!this.isInStaffMode(player)) return;
+    public void onEXPChange(PlayerExpChangeEvent event) {
+        Player player = event.getPlayer();
+        if (!this.isInStaffMode(player)) return;
 
         event.setAmount(0);
     }
 
     /**
-     * Helper Method
+     * Helper Methods
      */
-    public boolean isInStaffMode(Player player){
+    private boolean isInStaffMode(Player player) {
         return this.profileHandler
                 .getFromCache(player.getUniqueId())
                 .map(ProfileWrapper::isInStaffMode)
                 .orElse(false);
+    }
+
+    private String getRootCommand(String message) {
+        if (message == null || message.length() < 2) return "";
+
+        return message.substring(1)
+                .split(" ")[0]
+                .toLowerCase();
+    }
+
+    private boolean isAllowedCommand(String command) {
+        return command.equals("staffmode") || MainConfig.ENABLED_STAFFMODE_COMMANDS.contains(command);
     }
 }

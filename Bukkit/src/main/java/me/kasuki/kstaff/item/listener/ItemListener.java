@@ -21,13 +21,12 @@ public class ItemListener implements Listener {
         this.cooldown = new Cooldown();
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack heldItem = event.getItem();
 
         if (heldItem == null || heldItem.getType().equals(XMaterial.AIR.get())) return;
-
         NBTItem nbtItem = new NBTItem(heldItem);
         if (!nbtItem.hasKey("itemType")) return;
 

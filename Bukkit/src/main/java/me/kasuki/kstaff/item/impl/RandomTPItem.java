@@ -40,7 +40,6 @@ public class RandomTPItem extends AbstractItem {
         return material.orElse(XMaterial.ARROW);
     }
 
-
     @Override
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();

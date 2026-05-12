@@ -21,6 +21,12 @@ public class LangConfig extends Config {
     @ConfigAnnotation(path = "errors.no_placing_in_sm")
     public static String NO_PLACING_BLOCKS = "&cYou may not place blocks in staffmode!";
 
+    @ConfigAnnotation(path = "errors.no_dropping_in_sm")
+    public static String NO_DROPPING_ITEMS = "&cYou may not drop items in staffmode!";
+
+    @ConfigAnnotation(path = "errors.command_disabled")
+    public static String COMMAND_DISABLED = "&cYou may not use this command while in staffmode!";
+
     /**
      * Other staffmode conf
      */

@@ -36,6 +36,12 @@ public class LangConfig extends Config {
     @ConfigAnnotation(path = "staffmode.staff_disabled")
     public static String STAFFMODE_DISABLED = "&cYou have &ndisabled&c staffmode!";
 
+    @ConfigAnnotation(path = "staffchat.staff_enabled")
+    public static String STAFFCHAT_ENABLED = "&aYou have &nenabled&a staff chat!";
+
+    @ConfigAnnotation(path = "staffchat.staff_disabled")
+    public static String STAFFCHAT_DISABLED = "&cYou have &ndisabled&c staff chat!";
+
     public LangConfig(JavaPlugin plugin) {
         super(plugin, "lang");
     }

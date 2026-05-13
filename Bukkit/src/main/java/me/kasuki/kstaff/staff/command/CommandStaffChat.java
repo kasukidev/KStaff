@@ -10,20 +10,17 @@ import me.kasuki.kstaff.utilities.chat.MessageUtil;
 import me.kasuki.kstaff.utilities.config.LangConfig;
 import org.bukkit.entity.Player;
 
-public class CommandStaffMode {
+public class CommandStaffChat {
     private final KStaffPlugin instance;
     private final IProfileHandler profileHandler;
 
-    public CommandStaffMode(KStaffPlugin instance) {
+    public CommandStaffChat(KStaffPlugin instance) {
         this.instance = instance;
         this.profileHandler = this.instance.getKStaffAPI().get(IProfileHandler.class);
     }
 
-    /**
-     * Core staffmode command handling
-     */
-    @Command(label = "staffmode", aliases = {"mod", "mm", "sm", "modmode", "staff"}, permission = "kstaff.staffmode")
-    public void executeStaffMode(Player player) {
+    @Command(label = "staffchat", aliases = {"sc", "mc", "modchat"}, permission = "kstaff.staffchat")
+    public void executeStaffChat(Player player){
         ProfileWrapper wrapper = this.profileHandler.getFromCache(player.getUniqueId()).orElse(null);
         if (wrapper == null) {
             MessageUtil.sendPrefixedMessage(player, LangConfig.PROFILE_NOT_FOUND);
@@ -32,6 +29,6 @@ public class CommandStaffMode {
         }
 
         StaffManager staffManager = this.instance.getStaffManager();
-        staffManager.toggleStaffMode(player, wrapper, !wrapper.isInStaffMode());
+        staffManager.toggleStaffChat(player, wrapper, !wrapper.isInStaffChat());
     }
 }

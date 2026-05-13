@@ -4,6 +4,7 @@ import cc.insidious.fethmusmioma.CommandHandler;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
+import me.kasuki.kstaff.staff.command.CommandStaffChat;
 import me.kasuki.kstaff.staff.command.CommandStaffMode;
 
 import java.util.stream.Stream;
@@ -20,6 +21,6 @@ public class CommandRegistrationHandler implements IRegistrationHandler {
     public void registerObjects() {
         CommandHandler commandHandler = new CommandHandler(this.instance, "kstaff");
 
-        Stream.of(new CommandStaffMode(this.instance)).forEach(commandHandler::registerCommand);
+        Stream.of(new CommandStaffMode(this.instance), new CommandStaffChat(this.instance)).forEach(commandHandler::registerCommand);
     }
 }

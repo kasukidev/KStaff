@@ -18,7 +18,7 @@ import me.kasuki.kstaff.registration.data.ModuleRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.CommandRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.ListenerRegistrationHandler;
 import me.kasuki.kstaff.save.SaveRunnable;
-import me.kasuki.kstaff.staff.StaffModeManager;
+import me.kasuki.kstaff.staff.StaffManager;
 import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,7 +31,7 @@ public class KStaffPlugin extends JavaPlugin {
     private KStaffAPI KStaffAPI;
     private SaveRunnable saveRunnable;
     private ItemManager itemManager;
-    private StaffModeManager staffModeManager;
+    private StaffManager staffManager;
 
     // Redis stuff
     private RedisHandler redisHandler;
@@ -51,7 +51,7 @@ public class KStaffPlugin extends JavaPlugin {
                 .forEachOrdered(IRegistrationHandler::registerObjects);
 
         this.registerItemManager();
-        this.staffModeManager = new StaffModeManager(this);
+        this.staffManager = new StaffManager(this);
         this.saveRunnable = new SaveRunnable(this);
     }
 
@@ -72,7 +72,6 @@ public class KStaffPlugin extends JavaPlugin {
         );
 
         this.redisStreamPublisher = new RedisStreamPublisher(redisHandler);
-
 
         Set<String> keys = new HashSet<>(Lists.newArrayList(KStaffConstant.STAFF_CHAT_REDIS_KEY));
         IEventProcessorHandler eventProcessorHandler = new EventProcessorHandler(this);

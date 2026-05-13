@@ -10,11 +10,11 @@ import me.kasuki.kstaff.utilities.config.LangConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class StaffModeManager {
+public class StaffManager {
     private final KStaffPlugin instance;
     private final IProfileHandler profileHandler;
 
-    public StaffModeManager(KStaffPlugin instance) {
+    public StaffManager(KStaffPlugin instance) {
         this.instance = instance;
         this.profileHandler = instance.getKStaffAPI().get(IProfileHandler.class);
     }
@@ -37,6 +37,22 @@ public class StaffModeManager {
         MessageUtil.sendPrefixedMessage(player, LangConfig.STAFFMODE_DISABLED);
         player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.get(), 1, 0.6f);
     }
+
+    public void toggleStaffChat(Player player, ProfileWrapper wrapper, boolean newState) {
+        wrapper = wrapper.setStaffChatState(newState);
+        wrapper.setChanged(true);
+        this.profileHandler.addToCache(wrapper);
+
+        if (newState) {
+            MessageUtil.sendPrefixedMessage(player, LangConfig.STAFFCHAT_ENABLED);
+            player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.get(), 1, 1.3f);
+            return;
+        }
+
+        MessageUtil.sendPrefixedMessage(player, LangConfig.STAFFCHAT_DISABLED);
+        player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.get(), 1, 0.6f);
+    }
+
 
     /**
      * Inventory save/load handling

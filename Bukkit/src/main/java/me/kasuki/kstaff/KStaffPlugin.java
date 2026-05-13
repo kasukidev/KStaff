@@ -1,6 +1,10 @@
 package me.kasuki.kstaff;
 
 import com.google.common.collect.Lists;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Stream;
 import lombok.Getter;
 import me.kasuki.kstaff.api.KStaffAPI;
 import me.kasuki.kstaff.api.constant.KStaffConstant;
@@ -22,21 +26,21 @@ import me.kasuki.kstaff.staff.StaffManager;
 import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Stream;
-
 @Getter
 public class KStaffPlugin extends JavaPlugin {
     private KStaffAPI KStaffAPI;
     private SaveRunnable saveRunnable;
     private ItemManager itemManager;
-    private StaffManager staffManager;
+
 
     // Redis stuff
     private RedisHandler redisHandler;
     private AbstractRedisStreamPublisher redisStreamPublisher;
     private AbstractRedisStreamConsumer redisStreamConsumer;
+
+    // Staff
+    private final Set<UUID> staffPlayers = new HashSet<>();
+    private StaffManager staffManager;
 
     @Override
     public void onEnable() {

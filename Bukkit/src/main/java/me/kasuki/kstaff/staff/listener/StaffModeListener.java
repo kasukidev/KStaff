@@ -21,11 +21,11 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 
-public class StaffmodeListener implements Listener {
+public class StaffModeListener implements Listener {
     private final KStaffPlugin instance;
     private final IProfileHandler profileHandler;
 
-    public StaffmodeListener(KStaffPlugin instance) {
+    public StaffModeListener(KStaffPlugin instance) {
         this.instance = instance;
         this.profileHandler = this.instance.getKStaffAPI().get(IProfileHandler.class);
     }
@@ -213,6 +213,6 @@ public class StaffmodeListener implements Listener {
     }
 
     private boolean isAllowedCommand(String command) {
-        return command.equals("staffmode") || MainConfig.ENABLED_STAFFMODE_COMMANDS.contains(command);
+        return command.equalsIgnoreCase("staffmode") || MainConfig.ENABLED_STAFFMODE_COMMANDS.contains(command);
     }
 }

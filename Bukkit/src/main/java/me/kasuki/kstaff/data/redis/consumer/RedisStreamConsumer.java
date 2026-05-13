@@ -1,12 +1,11 @@
 package me.kasuki.kstaff.data.redis.consumer;
 
 
+import java.util.Set;
+import java.util.logging.Logger;
 import me.kasuki.kstaff.api.database.redis.AbstractRedisHandler;
 import me.kasuki.kstaff.api.database.redis.repository.stream.IEventProcessorHandler;
 import me.kasuki.kstaff.api.database.redis.repository.stream.consumer.AbstractRedisStreamConsumer;
-
-import java.util.Set;
-import java.util.logging.Logger;
 
 public class RedisStreamConsumer extends AbstractRedisStreamConsumer {
 

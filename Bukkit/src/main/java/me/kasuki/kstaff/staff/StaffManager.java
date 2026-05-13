@@ -10,6 +10,7 @@ import me.kasuki.kstaff.utilities.config.LangConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+
 public class StaffManager {
     private final KStaffPlugin instance;
     private final IProfileHandler profileHandler;

@@ -11,10 +11,18 @@ public class MainConfig extends Config {
     @ConfigAnnotation(path = "server_identifier")
     public static String SERVER_NAME = "DEV";
 
-    @ConfigAnnotation(path = "staffchat.format")
-    public static String STAFF_CHAT_FORMAT = "&e[&b%server%&e] &7[&e%sender%&7] &f%message%";
+    @ConfigAnnotation(path = "staff.stafchat.format")
+    public static String STAFF_CHAT_FORMAT = "&7[&bSC&7] &7[%server%] &3&l%sender% &8>> &b%message%";
 
 
+    @ConfigAnnotation(path = "staff.staffmode.enabled_commands")
+    public static List<String> ENABLED_STAFFMODE_COMMANDS = Lists.newArrayList(
+            "staff",
+            "staffmode",
+            "sm",
+            "mm",
+            "modmode"
+    );
 
     // Redis
     @ConfigAnnotation(path = "redis.host")
@@ -33,18 +41,7 @@ public class MainConfig extends Config {
     public static String REDIS_CONSUMER_GROUP = "kstaff";
 
     @ConfigAnnotation(path = "redis.consumer_key")
-    public static String REDIS_CONSUMER_KEY = "kstaff-dev";
-
-
-    // Server
-    @ConfigAnnotation(path = "staffmode.enabled_commands")
-    public static List<String> ENABLED_STAFFMODE_COMMANDS = Lists.newArrayList(
-            "staff",
-            "staffmode",
-            "sm",
-            "mm",
-            "modmode"
-    );
+    public static String REDIS_CONSUMER_KEY = "dev";
 
     public MainConfig(JavaPlugin plugin) {
         super(plugin, "config");

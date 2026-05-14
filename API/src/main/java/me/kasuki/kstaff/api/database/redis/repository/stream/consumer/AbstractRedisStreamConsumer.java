@@ -356,7 +356,8 @@ public abstract class AbstractRedisStreamConsumer {
             return;
         }
 
-        this.logger.info("Processing Event for: " + event.getEventType().name());
+        // NOTE: Debug for packets
+        // this.logger.info("Processing Event for: " + event.getEventType().name());
         IEventProcessor processor = optional.get();
         processor.processEvent(event.getEventData().toByteArray());
     }

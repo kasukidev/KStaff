@@ -13,4 +13,5 @@ message EventBundle {
 
 enum EventType {
   STAFF_CHAT_MESSAGE = 0;
+  ALERT = 1;
 }

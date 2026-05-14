@@ -20,7 +20,7 @@ public class CommandStaffChat {
         this.profileHandler = this.instance.getKStaffAPI().get(IProfileHandler.class);
     }
 
-    @Command(label = "staffchat", aliases = {"sc", "mc", "modchat"}, permission = "kstaff.staffchat")
+    @Command(label = "staffchat", aliases = {"sc", "mc", "modchat"}, permission = "kstaff.staffchat", appendStrings = true)
     public void executeStaffChat(Player player, @Optional(value = "empty") String messageArg){
         ProfileWrapper wrapper = this.profileHandler.getFromCache(player.getUniqueId()).orElse(null);
         if (wrapper == null) {
@@ -29,7 +29,7 @@ public class CommandStaffChat {
             return;
         }
         StaffManager staffManager = this.instance.getStaffManager();
-        if(!messageArg.equalsIgnoreCase("empty")){
+        if(messageArg != null){
             staffManager.publishStaffChatMessage(messageArg, player.getName());
             return;
         }

@@ -8,6 +8,7 @@ import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
 import me.kasuki.kstaff.api.database.redis.repository.stream.IEventProcessorHandler;
 import me.kasuki.kstaff.api.database.redis.repository.stream.processor.IEventProcessor;
+import me.kasuki.kstaff.data.redis.impl.AlertEventProcessor;
 import me.kasuki.kstaff.data.redis.impl.StaffChatEventProcessor;
 
 public class EventProcessorHandler implements IEventProcessorHandler {
@@ -41,7 +42,8 @@ public class EventProcessorHandler implements IEventProcessorHandler {
 
     @Override
     public void load() {
-        Stream.of(new StaffChatEventProcessor(this.instance))
+        Stream.of(new StaffChatEventProcessor(this.instance),
+                        new AlertEventProcessor(this.instance))
                 .filter(IEventProcessor.class::isInstance)
                 .forEach(this::registerEventProcessor);
     }

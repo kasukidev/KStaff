@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package me.kasuki.kstaff.api.data.redis;
+
+message Alert {
+  string message = 1;
+  string serverFrom = 2;
+}

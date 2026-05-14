@@ -24,6 +24,21 @@ public class MainConfig extends Config {
             "modmode"
     );
 
+    @ConfigAnnotation(path = "alerts.center_alert_message")
+    public static boolean CENTER_ALERT_MESSAGE = true;
+
+    @ConfigAnnotation(path = "alerts.alert_sound")
+    public static boolean ALERT_SOUND = true;
+
+
+    @ConfigAnnotation(path = "alerts.format")
+    public static List<String> ALERT_FORMAT = Lists.newArrayList(
+            "",
+            "&3&lKStaff Alert",
+            "&b%message%",
+            ""
+    );
+
     // Redis
     @ConfigAnnotation(path = "redis.host")
     public static String REDIS_HOST = "172.18.0.1";

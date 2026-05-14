@@ -26,4 +26,5 @@ public class KStaffConstant {
      * Constant for redis streams
      */
     public final String STAFF_CHAT_REDIS_KEY = "kstaff-staffchat";
+    public final String ALERT_REDIS_KEY = "kstaff-alert";
 }

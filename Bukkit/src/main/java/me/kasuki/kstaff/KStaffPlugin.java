@@ -12,6 +12,7 @@ import me.kasuki.kstaff.api.database.redis.repository.stream.IEventProcessorHand
 import me.kasuki.kstaff.api.database.redis.repository.stream.consumer.AbstractRedisStreamConsumer;
 import me.kasuki.kstaff.api.database.redis.repository.stream.publisher.AbstractRedisStreamPublisher;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
+import me.kasuki.kstaff.chat.ChatManager;
 import me.kasuki.kstaff.data.redis.RedisHandler;
 import me.kasuki.kstaff.data.redis.consumer.RedisStreamConsumer;
 import me.kasuki.kstaff.data.redis.consumer.processor.EventProcessorHandler;
@@ -28,12 +29,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public class KStaffPlugin extends JavaPlugin {
+    // API
     private KStaffAPI KStaffAPI;
     private SaveRunnable saveRunnable;
+
+    // Custom items
     private ItemManager itemManager;
 
-
-    // Redis stuff
+    // Redis
     private RedisHandler redisHandler;
     private AbstractRedisStreamPublisher redisStreamPublisher;
     private AbstractRedisStreamConsumer redisStreamConsumer;
@@ -42,6 +45,12 @@ public class KStaffPlugin extends JavaPlugin {
     private final Set<UUID> staffPlayers = new HashSet<>();
     private StaffManager staffManager;
 
+    // Chat
+    private ChatManager chatManager;
+
+    /**
+     * Core onEnable
+     */
     @Override
     public void onEnable() {
         new ConfigRegistrationHandler(this).registerObjects();
@@ -54,11 +63,14 @@ public class KStaffPlugin extends JavaPlugin {
                         new ListenerRegistrationHandler(this))
                 .forEachOrdered(IRegistrationHandler::registerObjects);
 
-        this.registerItemManager();
-        this.staffManager = new StaffManager(this);
+        this.initItemManager();
+        this.initManagers();
         this.saveRunnable = new SaveRunnable(this);
     }
 
+    /**
+     * Core onDisable
+     */
     @Override
     public void onDisable() {
         if (this.saveRunnable != null) {
@@ -69,6 +81,9 @@ public class KStaffPlugin extends JavaPlugin {
         this.KStaffAPI.shutdown();
     }
 
+    /**
+     * Initialization
+     */
     private void initRedis() {
         this.redisHandler = new RedisHandler(
                 MainConfig.REDIS_HOST, MainConfig.REDIS_PORT,
@@ -85,8 +100,12 @@ public class KStaffPlugin extends JavaPlugin {
         this.redisStreamConsumer.startConsumption();
     }
 
+    private void initManagers(){
+        this.chatManager = new ChatManager(this);
+        this.staffManager = new StaffManager(this);
+    }
 
-    private void registerItemManager(){
+    private void initItemManager(){
         this.itemManager = new ItemManager(this);
         this.itemManager.init();
     }

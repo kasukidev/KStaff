@@ -9,10 +9,13 @@ public class LangConfig extends Config {
     public static String PREFIX = "&8[&3&lKStaff&8]";
 
     /**
-     * Staff mode errors
+     * General errors
      */
     @ConfigAnnotation(path = "errors.profile_not_found")
     public static String PROFILE_NOT_FOUND = "&cYour profile was not found! Please try rejoining or contact staff if this issue persists.";
+
+    @ConfigAnnotation(path = "errors.cooldown_active")
+    public static String COOLDOWN_ACTIVE = "&cYou are on cooldown for %time%ms!";
 
     @ConfigAnnotation(path = "errors.no_breaking_in_sm")
     public static String NO_BREAKING_BLOCKS = "&cYou may not break blocks in staffmode!";

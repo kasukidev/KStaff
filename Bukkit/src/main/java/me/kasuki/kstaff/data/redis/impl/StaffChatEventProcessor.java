@@ -48,7 +48,5 @@ public class StaffChatEventProcessor implements IEventProcessor {
 
             player.sendMessage(CC.chat(formattedMessage));
         });
-
-
     }
 }

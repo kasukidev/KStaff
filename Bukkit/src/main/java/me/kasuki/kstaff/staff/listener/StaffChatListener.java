@@ -3,13 +3,9 @@ package me.kasuki.kstaff.staff.listener;
 import java.util.Set;
 import java.util.UUID;
 import me.kasuki.kstaff.KStaffPlugin;
-import me.kasuki.kstaff.api.constant.KStaffConstant;
-import me.kasuki.kstaff.api.data.redis.Staffmessage;
-import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
-import me.kasuki.kstaff.api.database.redis.repository.stream.publisher.AbstractRedisStreamPublisher;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
-import me.kasuki.kstaff.utilities.config.MainConfig;
+import me.kasuki.kstaff.staff.StaffManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,28 +22,23 @@ public class StaffChatListener implements Listener {
         this.profileHandler = this.instance.getKStaffAPI().get(IProfileHandler.class);
     }
 
+    /**
+     * Core staff chat listener
+     */
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         ProfileWrapper profileWrapper = this.profileHandler.getFromCache(player.getUniqueId()).orElse(null);
 
         if (profileWrapper == null) return;
-        if (!player.hasPermission("kstaff.staffchat")) return;
         if (!profileWrapper.isInStaffChat()) return;
+        if (!player.hasPermission("kstaff.staffchat")){
+            this.disableStaffChat(profileWrapper);
+            return;
+        }
 
-        Staffmessage.StaffMessage staffMessage = Staffmessage.StaffMessage.newBuilder()
-                .setMessage(event.getMessage())
-                .setSenderName(player.getName())
-                .setServerFrom(MainConfig.SERVER_NAME)
-                .build();
-
-        EventOuterClass.Event protoEvent = EventOuterClass.Event.newBuilder()
-                .setEventType(EventOuterClass.EventType.STAFF_CHAT_MESSAGE)
-                .setEventData(staffMessage.toByteString())
-                .build();
-
-        AbstractRedisStreamPublisher publisher = this.instance.getRedisStreamPublisher();
-        publisher.publish(protoEvent, KStaffConstant.STAFF_CHAT_REDIS_KEY);
+        StaffManager staffManager = this.instance.getStaffManager();
+        staffManager.publishStaffChatMessage(event.getMessage(), player.getName());
         event.setCancelled(true);
     }
 
@@ -72,5 +63,12 @@ public class StaffChatListener implements Listener {
         staffPlayers.remove(player.getUniqueId());
     }
 
-
+    /**
+     * Helper
+     */
+    private void disableStaffChat(ProfileWrapper wrapper){
+        wrapper = wrapper.setStaffChatState(false);
+        wrapper.setChanged(true);
+        this.profileHandler.addToCache(wrapper);
+    }
 }

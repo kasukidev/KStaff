@@ -1,6 +1,7 @@
 package me.kasuki.kstaff.staff.command;
 
 import cc.insidious.fethmusmioma.annotation.Command;
+import cc.insidious.fethmusmioma.annotation.Optional;
 import com.cryptomorin.xseries.XSound;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
@@ -20,15 +21,19 @@ public class CommandStaffChat {
     }
 
     @Command(label = "staffchat", aliases = {"sc", "mc", "modchat"}, permission = "kstaff.staffchat")
-    public void executeStaffChat(Player player){
+    public void executeStaffChat(Player player, @Optional(value = "empty") String messageArg){
         ProfileWrapper wrapper = this.profileHandler.getFromCache(player.getUniqueId()).orElse(null);
         if (wrapper == null) {
             MessageUtil.sendPrefixedMessage(player, LangConfig.PROFILE_NOT_FOUND);
             player.playSound(player.getLocation(), XSound.BLOCK_LAVA_POP.get(), 1, 1);
             return;
         }
-
         StaffManager staffManager = this.instance.getStaffManager();
+        if(!messageArg.equalsIgnoreCase("empty")){
+            staffManager.publishStaffChatMessage(messageArg, player.getName());
+            return;
+        }
+
         staffManager.toggleStaffChat(player, wrapper, !wrapper.isInStaffChat());
     }
 }

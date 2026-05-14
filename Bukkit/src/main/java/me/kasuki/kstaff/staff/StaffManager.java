@@ -2,11 +2,16 @@ package me.kasuki.kstaff.staff;
 
 import com.cryptomorin.xseries.XSound;
 import me.kasuki.kstaff.KStaffPlugin;
+import me.kasuki.kstaff.api.constant.KStaffConstant;
+import me.kasuki.kstaff.api.data.redis.Staffmessage;
+import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
+import me.kasuki.kstaff.api.database.redis.repository.stream.publisher.AbstractRedisStreamPublisher;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import me.kasuki.kstaff.utilities.chat.MessageUtil;
 import me.kasuki.kstaff.utilities.config.ItemsConfig;
 import me.kasuki.kstaff.utilities.config.LangConfig;
+import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +26,7 @@ public class StaffManager {
     }
 
     /**
-     * Main method
+     * Staff Toggles
      */
     public void toggleStaffMode(Player player, ProfileWrapper wrapper, boolean enteringStaffMode) {
         wrapper = wrapper.setStaffModeState(enteringStaffMode);
@@ -54,6 +59,25 @@ public class StaffManager {
         player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.get(), 1, 0.6f);
     }
 
+
+    /**
+     * Staff chat messaging
+     */
+    public void publishStaffChatMessage(String message, String senderName){
+        Staffmessage.StaffMessage staffMessage = Staffmessage.StaffMessage.newBuilder()
+                .setMessage(message)
+                .setSenderName(senderName)
+                .setServerFrom(MainConfig.SERVER_NAME)
+                .build();
+
+        EventOuterClass.Event protoEvent = EventOuterClass.Event.newBuilder()
+                .setEventType(EventOuterClass.EventType.STAFF_CHAT_MESSAGE)
+                .setEventData(staffMessage.toByteString())
+                .build();
+
+        AbstractRedisStreamPublisher publisher = this.instance.getRedisStreamPublisher();
+        publisher.publish(protoEvent, KStaffConstant.STAFF_CHAT_REDIS_KEY);
+    }
 
     /**
      * Inventory save/load handling

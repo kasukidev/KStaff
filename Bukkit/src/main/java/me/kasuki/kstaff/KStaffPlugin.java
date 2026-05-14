@@ -92,7 +92,7 @@ public class KStaffPlugin extends JavaPlugin {
 
         this.redisStreamPublisher = new RedisStreamPublisher(redisHandler);
 
-        Set<String> keys = new HashSet<>(Lists.newArrayList(KStaffConstant.STAFF_CHAT_REDIS_KEY));
+        Set<String> keys = new HashSet<>(Lists.newArrayList(KStaffConstant.STAFF_CHAT_REDIS_KEY, KStaffConstant.ALERT_REDIS_KEY));
         IEventProcessorHandler eventProcessorHandler = new EventProcessorHandler(this);
         eventProcessorHandler.load();
 

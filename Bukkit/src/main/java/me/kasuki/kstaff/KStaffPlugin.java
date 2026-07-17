@@ -1,10 +1,6 @@
 package me.kasuki.kstaff;
 
 import com.google.common.collect.Lists;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Stream;
 import lombok.Getter;
 import me.kasuki.kstaff.api.KStaffAPI;
 import me.kasuki.kstaff.api.constant.KStaffConstant;
@@ -24,8 +20,15 @@ import me.kasuki.kstaff.registration.gameplay.CommandRegistrationHandler;
 import me.kasuki.kstaff.registration.gameplay.ListenerRegistrationHandler;
 import me.kasuki.kstaff.save.SaveRunnable;
 import me.kasuki.kstaff.staff.StaffManager;
+import me.kasuki.kstaff.staff.scoreboard.ScoreboardProviderManager;
+import me.kasuki.kstaff.staff.scoreboard.task.ScoreboardTask;
 import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 @Getter
 public class KStaffPlugin extends JavaPlugin {
@@ -44,6 +47,8 @@ public class KStaffPlugin extends JavaPlugin {
     // Staff
     private final Set<UUID> staffPlayers = new HashSet<>();
     private StaffManager staffManager;
+    private ScoreboardProviderManager scoreboardProviderManager;
+    private ScoreboardTask staffScoreboardRunnable;
 
     // Chat
     private ChatManager chatManager;
@@ -66,6 +71,7 @@ public class KStaffPlugin extends JavaPlugin {
         this.initItemManager();
         this.initManagers();
         this.saveRunnable = new SaveRunnable(this);
+        this.staffScoreboardRunnable = new ScoreboardTask(this);
     }
 
     /**
@@ -73,6 +79,11 @@ public class KStaffPlugin extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        if (this.staffScoreboardRunnable != null) {
+            this.staffScoreboardRunnable.cancel();
+            this.staffScoreboardRunnable = null;
+        }
+
         if (this.saveRunnable != null) {
             this.saveRunnable.cancel();
             this.saveRunnable = null;
@@ -82,7 +93,7 @@ public class KStaffPlugin extends JavaPlugin {
     }
 
     /**
-     * Initialization
+     * Redis initialization
      */
     private void initRedis() {
         this.redisHandler = new RedisHandler(
@@ -100,11 +111,21 @@ public class KStaffPlugin extends JavaPlugin {
         this.redisStreamConsumer.startConsumption();
     }
 
+    /**
+     * Initialize the main staff managers
+     */
     private void initManagers(){
         this.chatManager = new ChatManager(this);
         this.staffManager = new StaffManager(this);
+        this.scoreboardProviderManager = new ScoreboardProviderManager(this);
+        this.scoreboardProviderManager.init();
+        this.KStaffAPI.register(ScoreboardProviderManager.class, this.scoreboardProviderManager);
     }
 
+    /**
+     * Initialzie the item manager
+     *  > NOTE: Done seperately because items depend on staff managers or something? I forgot
+     */
     private void initItemManager(){
         this.itemManager = new ItemManager(this);
         this.itemManager.init();

@@ -1,8 +1,6 @@
 package me.kasuki.kstaff.data.redis.impl;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import java.util.Set;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.data.redis.Staffmessage;
@@ -12,6 +10,9 @@ import me.kasuki.kstaff.utilities.chat.CC;
 import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.Set;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class StaffChatEventProcessor implements IEventProcessor {

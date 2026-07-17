@@ -1,10 +1,11 @@
 package me.kasuki.kstaff.item;
 
+import me.kasuki.kstaff.KStaffPlugin;
+import me.kasuki.kstaff.item.impl.RandomTPItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-import me.kasuki.kstaff.KStaffPlugin;
-import me.kasuki.kstaff.item.impl.RandomTPItem;
 
 public class ItemManager {
     private final KStaffPlugin instance;

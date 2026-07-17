@@ -1,6 +1,5 @@
 package me.kasuki.kstaff.registration.data;
 
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.KStaffAPI;
@@ -8,6 +7,8 @@ import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
 import me.kasuki.kstaff.data.profile.SQLiteProfileHandler;
 import me.kasuki.kstaff.utilities.pair.Pair;
+
+import java.util.stream.Stream;
 
 /**
  * Handles module registration for this module.

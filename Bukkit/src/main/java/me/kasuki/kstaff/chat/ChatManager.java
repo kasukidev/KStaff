@@ -1,7 +1,6 @@
 package me.kasuki.kstaff.chat;
 
 import com.cryptomorin.xseries.XSound;
-import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.constant.KStaffConstant;
 import me.kasuki.kstaff.api.data.redis.AlertOuterClass;
@@ -13,9 +12,12 @@ import me.kasuki.kstaff.utilities.config.MainConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@RequiredArgsConstructor
 public class ChatManager {
     private final KStaffPlugin instance;
+
+    public ChatManager(KStaffPlugin instance) {
+        this.instance = instance;
+    }
 
     /**
      * Alert handling
@@ -36,20 +38,15 @@ public class ChatManager {
     }
 
     public void handleAlertBroadcast(String message){
-        final boolean center = MainConfig.CENTER_ALERT_MESSAGE;
-
         for (Player player : Bukkit.getOnlinePlayers()) {
-
             if (MainConfig.ALERT_SOUND) {
                 player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.get(), 1.0F, 1.2F);
             }
 
-
-
             MainConfig.ALERT_FORMAT.forEach(str -> {
                 String alertStr = CC.chat(str.replace("%message%", message));
 
-                if (center) {
+                if (MainConfig.CENTER_ALERT_MESSAGE) {
                     MessageUtil.sendCenteredMessage(player, alertStr);
                     return;
                 }

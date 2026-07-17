@@ -1,15 +1,16 @@
 package me.kasuki.kstaff.data.redis.consumer.processor;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.database.redis.event.EventOuterClass;
 import me.kasuki.kstaff.api.database.redis.repository.stream.IEventProcessorHandler;
 import me.kasuki.kstaff.api.database.redis.repository.stream.processor.IEventProcessor;
 import me.kasuki.kstaff.data.redis.impl.AlertEventProcessor;
 import me.kasuki.kstaff.data.redis.impl.StaffChatEventProcessor;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 public class EventProcessorHandler implements IEventProcessorHandler {
     private final KStaffPlugin instance;

@@ -1,6 +1,5 @@
 package me.kasuki.kstaff.registration.gameplay;
 
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.registration.IRegistrationHandler;
@@ -10,6 +9,8 @@ import me.kasuki.kstaff.staff.listener.StaffChatListener;
 import me.kasuki.kstaff.staff.listener.StaffModeListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+
+import java.util.stream.Stream;
 
 /**
  * Handles listener registration for this module.

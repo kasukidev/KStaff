@@ -2,11 +2,12 @@ package me.kasuki.kstaff.item;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import java.util.List;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.utilities.item.ItemBuilder;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 public abstract class AbstractItem {
     protected final KStaffPlugin instance;

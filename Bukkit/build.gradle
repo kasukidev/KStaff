@@ -77,6 +77,8 @@ protobuf {
 dependencies {
     annotationProcessor('org.projectlombok:lombok:1.18.36')
     compileOnly('org.spigotmc:spigot-api:1.8-R0.1-SNAPSHOT')
+    compileOnly('com.github.NEZNAMY:TAB-API:5.0.4')
+    compileOnly('com.decimatemc:DecimateCommons:1.0')
     compileOnly('org.projectlombok:lombok:1.18.36')
     implementation('org.jetbrains:annotations:24.1.0')
     implementation('org.apache.commons:commons-text:1.12.0')

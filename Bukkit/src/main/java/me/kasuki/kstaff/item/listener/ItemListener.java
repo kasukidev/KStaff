@@ -1,7 +1,7 @@
 package me.kasuki.kstaff.item.listener;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBT;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.item.AbstractItem;
 import me.kasuki.kstaff.utilities.cooldown.Cooldown;
@@ -27,15 +27,18 @@ public class ItemListener implements Listener {
         ItemStack heldItem = event.getItem();
 
         if (heldItem == null || heldItem.getType().equals(XMaterial.AIR.get())) return;
-        NBTItem nbtItem = new NBTItem(heldItem);
-        if (!nbtItem.hasKey("itemType")) return;
 
-        AbstractItem item = instance.getItemManager().getFromId(nbtItem.getString("itemType"));
-        if (item == null) return;
-        if (cooldown.isActive(player.getUniqueId())) return;
 
-        cooldown.placeOnCooldown(player.getUniqueId(), 100);
-        item.onInteract(event);
-        event.setCancelled(true);
+        NBT.get(heldItem, reader -> {
+            if(!reader.hasTag("itemType")) return;
+
+            AbstractItem item = instance.getItemManager().getFromId(reader.getString("itemType"));
+            if (item == null) return;
+            if (cooldown.isActive(player.getUniqueId())) return;
+
+            cooldown.placeOnCooldown(player.getUniqueId(), 100);
+            item.onInteract(event);
+            event.setCancelled(true);
+        });
     }
 }

@@ -29,4 +29,18 @@ public interface IProfileHandler extends ILoadable, IUnloadable {
     void getFromDatabase(UUID uniqueId, Consumer<Optional<ProfileWrapper>> consumer);
 
     void getAllFromDatabase(Consumer<Collection<ProfileWrapper>> consumer);
+
+    /**
+     * Returns whether the player with the given UUID is currently in staff mode.
+     */
+    default boolean isInStaffMode(UUID uniqueId) {
+        return this.getFromCache(uniqueId).map(ProfileWrapper::isInStaffMode).orElse(false);
+    }
+
+    /**
+     * Returns whether the player with the given UUID is currently in staff chat.
+     */
+    default boolean isInStaffChat(UUID uniqueId) {
+        return this.getFromCache(uniqueId).map(ProfileWrapper::isInStaffChat).orElse(false);
+    }
 }

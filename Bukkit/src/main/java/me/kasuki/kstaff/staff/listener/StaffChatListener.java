@@ -1,17 +1,19 @@
 package me.kasuki.kstaff.staff.listener;
 
-import java.util.Set;
-import java.util.UUID;
 import me.kasuki.kstaff.KStaffPlugin;
 import me.kasuki.kstaff.api.profile.IProfileHandler;
 import me.kasuki.kstaff.api.profile.wrapper.ProfileWrapper;
 import me.kasuki.kstaff.staff.StaffManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.util.Set;
+import java.util.UUID;
 
 public class StaffChatListener implements Listener {
     private final KStaffPlugin instance;
@@ -25,14 +27,15 @@ public class StaffChatListener implements Listener {
     /**
      * Core staff chat listener
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         ProfileWrapper profileWrapper = this.profileHandler.getFromCache(player.getUniqueId()).orElse(null);
 
+        if (event.isCancelled()) return;
         if (profileWrapper == null) return;
         if (!profileWrapper.isInStaffChat()) return;
-        if (!player.hasPermission("kstaff.staffchat")){
+        if (!player.hasPermission("kstaff.staffchat")) {
             this.disableStaffChat(profileWrapper);
             return;
         }
@@ -66,7 +69,7 @@ public class StaffChatListener implements Listener {
     /**
      * Helper
      */
-    private void disableStaffChat(ProfileWrapper wrapper){
+    private void disableStaffChat(ProfileWrapper wrapper) {
         wrapper = wrapper.setStaffChatState(false);
         wrapper.setChanged(true);
         this.profileHandler.addToCache(wrapper);
